@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 
@@ -13,6 +14,9 @@ public class DriveOpMode extends OpMode {
     private DcMotor leftBackMotor;
     private DcMotor rightFrontMotor;
     private DcMotor rightBackMotor;
+
+    private Servo servo;
+
 
     public void init(){
         leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
@@ -30,7 +34,7 @@ public class DriveOpMode extends OpMode {
         rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
+    servo = hardwareMap.get(Servo.class, "servo");
     }
 
     public void loop(){
@@ -58,6 +62,15 @@ public class DriveOpMode extends OpMode {
         leftBackMotor.setPower(backLeft);
         rightFrontMotor.setPower(frontRight);
         rightBackMotor.setPower(backRight);
+
+        // servo stuff
+        if(gamepad1.a) {
+            servo.setPosition(0);
+        }
+
+        if(gamepad1.b) {
+            servo.setPosition(1);
+        }
 
         telemetry.addData("forward", forward);
         telemetry.addData("frontLeft", frontLeft);
