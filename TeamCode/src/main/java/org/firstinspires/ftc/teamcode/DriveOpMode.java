@@ -15,7 +15,8 @@ public class DriveOpMode extends OpMode {
     private DcMotor rightFrontMotor;
     private DcMotor rightBackMotor;
 
-    private Servo servo;
+
+    private Outtake outtake;
 
 
     public void init(){
@@ -34,7 +35,7 @@ public class DriveOpMode extends OpMode {
         rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-    servo = hardwareMap.get(Servo.class, "servo");
+    outtake = new Outtake(hardwareMap);
     }
 
     public void loop(){
@@ -65,11 +66,11 @@ public class DriveOpMode extends OpMode {
 
         // servo stuff
         if(gamepad1.a) {
-            servo.setPosition(0);
+            outtake.up();
         }
 
         if(gamepad1.b) {
-            servo.setPosition(1);
+            outtake.down();
         }
 
         telemetry.addData("forward", forward);
