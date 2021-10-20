@@ -16,8 +16,7 @@ public class DriveOpMode extends OpMode {
     private DcMotor rightBackMotor;
 
 
-    private Servo servo;
-
+    private DuckSpinner duckSpinner;
     public void init(){
         leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
         leftBackMotor = hardwareMap.get(DcMotor.class, "drive_lb");
@@ -33,7 +32,9 @@ public class DriveOpMode extends OpMode {
         leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-servo = hardwareMap.get(Servo.class,  "servo");
+
+
+        duckSpinner = new DuckSpinner(hardwareMap);
 
     }
 
@@ -64,10 +65,10 @@ servo = hardwareMap.get(Servo.class,  "servo");
         rightBackMotor.setPower(backRight);
 // Servo stuff
         if(gamepad1.a) {
-            servo.setPosition(0);
+            duckSpinner.up();
         }
         if(gamepad1.b) {
-            servo.setPosition(1);
+            duckSpinner.down();
         }
 
         telemetry.addData("forward", forward);
