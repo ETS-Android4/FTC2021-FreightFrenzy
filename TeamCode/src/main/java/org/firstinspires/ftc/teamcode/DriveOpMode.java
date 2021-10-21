@@ -14,6 +14,8 @@ public class DriveOpMode extends OpMode {
     private DcMotor rightFrontMotor;
     private DcMotor rightBackMotor;
 
+    private Arm arm;
+
     public void init(){
         leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
         leftBackMotor = hardwareMap.get(DcMotor.class, "drive_lb");
@@ -29,6 +31,8 @@ public class DriveOpMode extends OpMode {
         leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        arm = new Arm(hardwareMap);
 
 
     }
@@ -58,6 +62,12 @@ public class DriveOpMode extends OpMode {
         leftBackMotor.setPower(backLeft);
         rightFrontMotor.setPower(frontRight);
         rightBackMotor.setPower(backRight);
+
+        // Press the a button to extend
+
+        // Press the b button to retract
+
+        // WHen either a or b are not pressed stop
 
         telemetry.addData("forward", forward);
         telemetry.addData("frontLeft", frontLeft);
