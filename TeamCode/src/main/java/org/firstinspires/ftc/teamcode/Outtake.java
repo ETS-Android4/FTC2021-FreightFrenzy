@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Outtake {
 
-    private Servo servo;
+    private Servo servo; 
 
     public Outtake(HardwareMap hardwareMap) {
         servo = hardwareMap.get(Servo.class, "servo");
