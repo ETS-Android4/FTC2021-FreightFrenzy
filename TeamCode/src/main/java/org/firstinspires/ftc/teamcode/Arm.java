@@ -16,9 +16,9 @@ public class Arm {
     public void extend() {
     }
 
-    ];';;]]'
+
     public void retract() {
-        motor = -1
+        motor.setPower(-1);
     }
 
     public double getExtensionCounts() {
