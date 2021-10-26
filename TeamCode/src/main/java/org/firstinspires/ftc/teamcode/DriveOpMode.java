@@ -1,5 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.button.GamepadButton;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 
-public class DriveOpMode extends OpMode {
+public class DriveOpMode extends CommandOpMode {
 
     private DcMotor leftFrontMotor;
     private DcMotor leftBackMotor;
@@ -17,7 +22,8 @@ public class DriveOpMode extends OpMode {
 
 
     private DuckSpinner duckSpinner;
-    public void init(){
+
+    public void initialize() {
         leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
         leftBackMotor = hardwareMap.get(DcMotor.class, "drive_lb");
         rightFrontMotor = hardwareMap.get(DcMotor.class, "drive_rf");
@@ -35,60 +41,15 @@ public class DriveOpMode extends OpMode {
 
 
         duckSpinner = new DuckSpinner(hardwareMap);
+        // command stuff
+        GamepadEx driver = new GamepadEx(gamepad1);
+
+        GamepadButton moveUpButton = new GamepadButton(driver, GamepadKeys.Button.A);
+        moveUpButton.whileHeld(new MoveDuckSpinnerUpCommand(duckSpinner));
+
+        GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.A);
+        moveUpButton.whileHeld(new MoveDuckSpinnerDownCommand(duckSpinner));
 
     }
-
-    public void loop(){
-        // gamepad
-        double forward = gamepad1.left_stick_y;
-        double turn = gamepad1.left_stick_x;
-        double strafe = gamepad1.right_stick_x;
-
-        forward = -forward;
-
-        forward = inputCurve(forward);
-
-        turn = inputCurve(turn);
-
-        strafe = inputCurve(strafe);
-
-        //Calculate speed for each motor
-        double frontLeft = forward + turn +  strafe;
-        double frontRight = forward - turn - strafe;
-        double backLeft = forward + turn - strafe;
-        double backRight = forward - turn + strafe;
-
-        //set motor
-        leftFrontMotor.setPower(frontLeft);
-        leftBackMotor.setPower(backLeft);
-        rightFrontMotor.setPower(frontRight);
-        rightBackMotor.setPower(backRight);
-// Servo stuff
-        if(gamepad1.a) {
-            duckSpinner.up();
-        }
-        if(gamepad1.b) {
-            duckSpinner.down();
-        }
-
-        telemetry.addData("forward", forward);
-        telemetry.addData("frontLeft", frontLeft);
-        telemetry.addData("frontRight", frontRight);
-        telemetry.addData("backLeft", backLeft);
-        telemetry.addData("backRight", backRight);
-        telemetry.update();
-
-    }
-
-    public double inputCurve(double input) {
-        if(0 <= input) {
-            // input is postive
-            return input * input;
-        } else {
-            // input is negative
-            return -(input * input);
-        }
-    }
-
 
 }
