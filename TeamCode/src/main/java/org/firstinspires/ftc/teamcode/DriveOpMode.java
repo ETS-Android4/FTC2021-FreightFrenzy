@@ -15,7 +15,7 @@ public class DriveOpMode extends OpMode {
     private DcMotor rightFrontMotor;
     private DcMotor rightBackMotor;
 
-    private Servo servo;
+    private Test test;
 
     public void init(){
         leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
@@ -33,7 +33,7 @@ public class DriveOpMode extends OpMode {
         rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        servo = hardwareMap.get(Servo.class, "servo");
+        test = new Test(hardwareMap);
     }
 
     public void loop(){
@@ -64,11 +64,11 @@ public class DriveOpMode extends OpMode {
 
         // Servo stuff
         if(gamepad1.a) {
-            servo.setPosition(0);
+            test.up();
         }
 
         if(gamepad1.b) {
-            servo.setPosition(1);
+            test.down();
         }
 
 
