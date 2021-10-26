@@ -37,11 +37,16 @@ public class DriveForwardsOpMode extends OpMode {
 
     public void loop(){
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         int goal = distance; // TODO convert from inches to counts
 
-
+        rightFrontMotor.setTargetPosition(goal);
         rightBackMotor.setTargetPosition(goal);
+        leftFrontMotor.setTargetPosition(goal);
+        leftBackMotor.setTargetPosition(goal);
 
     }
 
