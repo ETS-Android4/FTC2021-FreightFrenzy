@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class IntakeRamp {
+public class IntakeRamp extends SubsystemBase {
 
     private Servo servo;
 
