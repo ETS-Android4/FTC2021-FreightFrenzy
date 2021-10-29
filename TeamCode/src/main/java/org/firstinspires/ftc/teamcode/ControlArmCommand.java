@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-public class ControlArmCommand{
+import com.arcrobotics.ftclib.command.CommandBase;
+
+public class ControlArmCommand extends CommandBase {
 
     private final double kTollerance = 50;
 
@@ -13,10 +15,10 @@ public class ControlArmCommand{
         arm_ = arm;
     }
 
-    protected void initialize() {
+    public void initialize() {
     }
 
-    protected void execute() {
+    public void execute() {
         double error = goalCounts_ - arm_.getExtensionCounts();
         if (error > 0) {
             arm_.extend();
@@ -25,15 +27,12 @@ public class ControlArmCommand{
         }
     }
 
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return Math.abs(goalCounts_ - arm_.getExtensionCounts()) < kTollerance;
     }
 
-    protected void end() {
+    public void end(boolean interrupted) {
         arm_.stop();
     }
 
-    protected void interrupted() {
-        this.end();
-    }
 }
