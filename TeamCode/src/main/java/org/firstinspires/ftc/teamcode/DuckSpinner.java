@@ -1,22 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class DuckSpinner extends SubsystemBase {
 
-    private Servo servo;
+    private DcMotor dcMotor;
 
     public DuckSpinner(HardwareMap hardwareMap) {
 
-        servo = hardwareMap.get(Servo.class,  "servo");
+       dcMotor  = hardwareMap.get(DcMotor.class,  "spinner");
     }
-   public void down() {
-        servo.setPosition(1);
+   public void stop() {
+        dcMotor.setPower(0);
    }
-   public void up() {
-      servo.setPosition(0);
+   public void spin() {
+      dcMotor.setPower(1);
    }
 
 }

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -8,8 +7,6 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 
@@ -45,10 +42,9 @@ public class DriveOpMode extends CommandOpMode {
         GamepadEx driver = new GamepadEx(gamepad1);
 
         GamepadButton moveUpButton = new GamepadButton(driver, GamepadKeys.Button.A);
-        moveUpButton.whileHeld(new MoveDuckSpinnerUpCommand(duckSpinner));
+        moveUpButton.whileHeld(new MoveDuckSpinnerSpinCommand(duckSpinner));
 
-        GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.A);
-        moveUpButton.whileHeld(new MoveDuckSpinnerDownCommand(duckSpinner));
+
 
     }
 

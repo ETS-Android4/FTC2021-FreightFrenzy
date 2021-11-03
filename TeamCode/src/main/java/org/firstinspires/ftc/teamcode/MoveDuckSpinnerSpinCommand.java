@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
-public class MoveDuckSpinnerUpCommand extends CommandBase {
+public class MoveDuckSpinnerSpinCommand extends CommandBase {
     private DuckSpinner duckspinner;
 
-    public MoveDuckSpinnerUpCommand(DuckSpinner duckSpinner) {
-        this.duckspinner = duckspinner;
+    public MoveDuckSpinnerSpinCommand(DuckSpinner duckSpinner) {
+        this.duckspinner = duckSpinner;
         addRequirements(duckspinner);
     }
 
@@ -18,7 +18,7 @@ public class MoveDuckSpinnerUpCommand extends CommandBase {
 
     @Override
     public void execute() {
-        duckspinner.up();
+        duckspinner.spin();
     }
 
     @Override
@@ -28,6 +28,7 @@ public class MoveDuckSpinnerUpCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        duckspinner.stop();
 
     }
 }
