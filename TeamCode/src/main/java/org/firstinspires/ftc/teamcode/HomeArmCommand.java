@@ -6,8 +6,9 @@ public class HomeArmCommand extends CommandBase {
 
     public final Arm arm_;
 
-    public HomeArmCommand(Arm arm, double counts) {
+    public HomeArmCommand(Arm arm) {
         arm_ = arm;
+        addRequirements(arm);
     }
 
     public void initialize() {

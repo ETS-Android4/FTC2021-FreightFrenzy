@@ -2,17 +2,21 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class ControlArmCommand extends CommandBase {
 
     private final double kTollerance = 50;
-
-    public final Arm arm_;
-
+    private final Arm arm_;
     private final double goalCounts_;
+    private Telemetry telemetry_;
 
-    public ControlArmCommand(Arm arm, double counts) {
+
+    public ControlArmCommand(Arm arm, double counts, Telemetry telemetry) {
         goalCounts_ = counts;
         arm_ = arm;
+        telemetry_ = telemetry;
+        addRequirements(arm);
     }
 
     public void initialize() {
@@ -25,6 +29,8 @@ public class ControlArmCommand extends CommandBase {
         } else {
             arm_.retract();
         }
+        telemetry_.addData("armError",error);
+
     }
 
     public boolean isFinished() {

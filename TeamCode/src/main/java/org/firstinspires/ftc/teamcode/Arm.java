@@ -6,15 +6,19 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class Arm extends SubsystemBase {
 
+    private Telemetry telemetry;
     private DcMotorEx motor;
     private TouchSensor retractLimit;
 
-    public Arm(HardwareMap hardwareMap) {
+    public Arm(HardwareMap hardwareMap, Telemetry telemetry) {
         // Setup motor and limit switch
         motor = hardwareMap.get(DcMotorEx.class, "arm");
         retractLimit = hardwareMap.get(TouchSensor.class, "retractLimit");
+        this.telemetry = telemetry;
     }
 
     // Add stuff to move arm out, in, and stop
@@ -25,7 +29,7 @@ public class Arm extends SubsystemBase {
             return;
         }
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor.setPower(1);
+        motor.setPower(0.1);
     }
 
 
@@ -36,7 +40,7 @@ public class Arm extends SubsystemBase {
             return;
         }
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor.setPower(-0.5);
+        motor.setPower(-0.1);
     }
 
     public double getExtensionCounts() {
@@ -60,5 +64,14 @@ public class Arm extends SubsystemBase {
         return retractLimit.isPressed();
     }
 
+    @Override
+    public void periodic() {
+
+        telemetry.addData("ArmExtension", getExtensionCounts());
+        telemetry.addData("isFullyRetracted", isFullyRetracted());
+        telemetry.addData("isFullyExtended", isFullyExtended());
+        telemetry.update();
+
+    }
 }
 
