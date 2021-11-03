@@ -9,28 +9,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 public class DriveOpMode extends OpMode {
 
-    private DcMotor leftFrontMotor;
-    private DcMotor leftBackMotor;
-    private DcMotor rightFrontMotor;
-    private DcMotor rightBackMotor;
+private Drive drive;
 
     public void init(){
-        leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
-        leftBackMotor = hardwareMap.get(DcMotor.class, "drive_lb");
-        rightFrontMotor = hardwareMap.get(DcMotor.class, "drive_rf");
-        rightBackMotor = hardwareMap.get(DcMotor.class, "drive_rb");
-
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
+      drive = new Drive(hardwareMap);
     }
 
     public void loop(){
@@ -47,24 +29,8 @@ public class DriveOpMode extends OpMode {
 
         strafe = inputCurve(strafe);
 
-        //Calculate speed for each motor
-        double frontLeft = forward + turn +  strafe;
-        double frontRight = forward - turn - strafe;
-        double backLeft = forward + turn - strafe;
-        double backRight = forward - turn + strafe;
 
-        //set motor
-        leftFrontMotor.setPower(frontLeft);
-        leftBackMotor.setPower(backLeft);
-        rightFrontMotor.setPower(frontRight);
-        rightBackMotor.setPower(backRight);
 
-        telemetry.addData("forward", forward);
-        telemetry.addData("frontLeft", frontLeft);
-        telemetry.addData("frontRight", frontRight);
-        telemetry.addData("backLeft", backLeft);
-        telemetry.addData("backRight", backRight);
-        telemetry.update();
 
     }
 
