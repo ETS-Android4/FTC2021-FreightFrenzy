@@ -10,6 +10,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.robocol.Command;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.robocol.Command;
 
 @TeleOp
 
@@ -18,11 +21,13 @@ public class DriveOpMode extends CommandOpMode {
 
     private DuckSpinner duckSpinner;
     private Drive drive;
+    private Outtake outtake;
 
     @Override
     public void initialize(){
         drive = new Drive(hardwareMap);
         duckSpinner = new DuckSpinner(hardwareMap);
+        outtake = new Outtake(hardwareMap);
         
         drive.setDefaultCommand
                 (new DriveWithGamepadCommand(gamepad1, drive)
@@ -32,6 +37,12 @@ public class DriveOpMode extends CommandOpMode {
 
         GamepadButton moveUpButton = new GamepadButton(driver, GamepadKeys.Button.A);
         moveUpButton.whileHeld(new MoveDuckSpinnerSpinCommand(duckSpinner));
-    }
+        
+        GamepadButton moveUpButton = new GamepadButton(driver, GamepadKeys.Button.A);
+        moveUpButton.whileHeld(new MoveOuttakeUpCommand(outtake));
+
+        GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.B);
+        moveDownButton.whileHeld(new MoveOuttakeDownCommand(outtake));
+
 }
 }
