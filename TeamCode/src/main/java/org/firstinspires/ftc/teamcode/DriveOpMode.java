@@ -21,6 +21,7 @@ public class DriveOpMode extends CommandOpMode {
     private DcMotor rightBackMotor;
 
     private IntakeRamp intakeramp;
+    private IntakeSpinner intakeSpinner;
 
     public void initialize(){
         leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
@@ -39,6 +40,7 @@ public class DriveOpMode extends CommandOpMode {
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         intakeramp = new IntakeRamp(hardwareMap);
+        intakeSpinner = new IntakeSpinner(hardwareMap);
 
         GamepadEx driver = new GamepadEx(gamepad1);
 
@@ -46,7 +48,13 @@ public class DriveOpMode extends CommandOpMode {
         moveUpButton.whileHeld(new MoveIntakeRampUpCommand(intakeramp));
 
         GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.B);
-        moveUpButton.whileHeld(new MoveIntakeRampDownCommand(intakeramp));
+        moveDownButton.whileHeld(new MoveIntakeRampDownCommand(intakeramp));
+
+        GamepadButton spinIntakeIn = new GamepadButton(driver, GamepadKeys.Button.X);
+        spinIntakeIn.whileHeld(new SpinIntakeCommand(intakeSpinner));
+
+        GamepadButton spinIntakeOut = new GamepadButton(driver, GamepadKeys.Button.Y);
+        spinIntakeOut.whileHeld(new SpinOuttakeCommand(intakeSpinner));
     }
 
 
