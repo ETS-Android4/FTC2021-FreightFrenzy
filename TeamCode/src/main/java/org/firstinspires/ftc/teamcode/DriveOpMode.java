@@ -22,6 +22,8 @@ public class DriveOpMode extends CommandOpMode {
     private DuckSpinner duckSpinner;
     private Drive drive;
     private Outtake outtake;
+    private IntakeRamp intakeramp;
+    private IntakeSpinner intakeSpinner;
 
     @Override
     public void initialize(){
@@ -43,6 +45,19 @@ public class DriveOpMode extends CommandOpMode {
 
         GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.B);
         moveDownButton.whileHeld(new MoveOuttakeDownCommand(outtake));
+        intakeramp = new IntakeRamp(hardwareMap);
+        intakeSpinner = new IntakeSpinner(hardwareMap);
 
+        GamepadButton moveUpButton = new GamepadButton(driver, GamepadKeys.Button.A);
+        moveUpButton.whileHeld(new MoveIntakeRampUpCommand(intakeramp));
+
+        GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.B);
+        moveDownButton.whileHeld(new MoveIntakeRampDownCommand(intakeramp));
+
+        GamepadButton spinIntakeIn = new GamepadButton(driver, GamepadKeys.Button.X);
+
+        spinIntakeIn.whileHeld(new SpinIntakeCommand(intakeSpinner));
+        GamepadButton spinIntakeOut = new GamepadButton(driver, GamepadKeys.Button.Y);
+        spinIntakeOut.whileHeld(new SpinOuttakeCommand(intakeSpinner));
 }
 }
