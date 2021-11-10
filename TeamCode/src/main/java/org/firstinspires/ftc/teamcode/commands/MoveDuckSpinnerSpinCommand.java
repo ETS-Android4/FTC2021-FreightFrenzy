@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+
+import org.firstinspires.ftc.teamcode.subsystems.DuckSpinner;
 
 public class MoveDuckSpinnerSpinCommand extends CommandBase {
     private DuckSpinner duckspinner;

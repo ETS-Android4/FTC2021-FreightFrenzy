@@ -1,6 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+
+import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 
 public class SpinOuttakeCommand extends CommandBase {
     private IntakeSpinner intakeSpinner;
