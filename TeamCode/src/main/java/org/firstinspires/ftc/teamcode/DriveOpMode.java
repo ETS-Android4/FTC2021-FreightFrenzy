@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeRamp;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
-@TeleOp(name = "Telop")
+@TeleOp(name = "TeleOp")
 
 public class DriveOpMode extends CommandOpMode {
 
