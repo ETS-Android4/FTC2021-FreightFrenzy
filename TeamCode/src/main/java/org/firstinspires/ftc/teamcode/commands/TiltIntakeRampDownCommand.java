@@ -4,10 +4,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.IntakeRamp;
 
-public class MoveIntakeRampUpCommand extends CommandBase {
+public class TiltIntakeRampDownCommand extends CommandBase {
     private IntakeRamp intakeramp;
 
-    public MoveIntakeRampUpCommand (IntakeRamp intakeramp) {
+    public TiltIntakeRampDownCommand(IntakeRamp intakeramp) {
         this.intakeramp = intakeramp;
         addRequirements(intakeramp);
     }
@@ -19,7 +19,8 @@ public class MoveIntakeRampUpCommand extends CommandBase {
 
     @Override
     public void execute() {
-        intakeramp.up();
+        intakeramp.down();
+
     }
 
     @Override

@@ -4,12 +4,12 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 
-public class SpinOuttakeCommand extends CommandBase {
+public class SpinIntakeInCommand extends CommandBase {
     private IntakeSpinner intakeSpinner;
 
-    public SpinOuttakeCommand(IntakeSpinner outtakeSpinner) {
-        this.intakeSpinner = outtakeSpinner;
-        addRequirements(outtakeSpinner);
+    public SpinIntakeInCommand(IntakeSpinner intakeSpinner) {
+        this.intakeSpinner = intakeSpinner;
+        addRequirements(intakeSpinner);
     }
 
     @Override
@@ -19,7 +19,8 @@ public class SpinOuttakeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        intakeSpinner.outtake();
+        intakeSpinner.intake();
+
     }
 
     @Override
@@ -30,6 +31,5 @@ public class SpinOuttakeCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         intakeSpinner.stop();
-
     }
 }

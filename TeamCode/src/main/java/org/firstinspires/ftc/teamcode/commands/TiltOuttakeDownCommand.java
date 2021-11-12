@@ -4,11 +4,11 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
-public class MoveOuttakeUpCommand  extends CommandBase {
+public class TiltOuttakeDownCommand extends CommandBase {
 
     private Outtake outtake;
 
-    public MoveOuttakeUpCommand(Outtake outtake) {
+    public TiltOuttakeDownCommand(Outtake outtake) {
         this.outtake = outtake;
         addRequirements(outtake);
     }
@@ -20,7 +20,7 @@ public class MoveOuttakeUpCommand  extends CommandBase {
 
     @Override
     public void execute() {
-        outtake.up();
+        outtake.down();
     }
 
     @Override
