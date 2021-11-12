@@ -14,6 +14,10 @@ public class ControlArmCommand extends CommandBase {
 
 
     public ControlArmCommand(Arm arm, double counts, Telemetry telemetry) {
+        if (telemetry == null) {
+            throw new RuntimeException("ControlArmCommand null telemetry");
+        }
+
         goalCounts_ = counts;
         arm_ = arm;
         telemetry_ = telemetry;
@@ -31,6 +35,9 @@ public class ControlArmCommand extends CommandBase {
             arm_.retract();
         }
         telemetry_.addData("armError",error);
+        if (telemetry_ == null) {
+            throw new RuntimeException("ControlArmCommand execute null telemetry");
+        }
 
     }
 

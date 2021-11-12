@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -11,6 +12,7 @@ public class IntakeSpinner extends SubsystemBase {
 
     public IntakeSpinner(HardwareMap hardwareMap){
         dcMotor = hardwareMap.get(DcMotor.class, "intakeSpinner");
+        dcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void intake() {dcMotor.setPower(1);

@@ -63,16 +63,18 @@ public class DriveOpMode extends CommandOpMode {
         spinIntakeIn.whileHeld(new SpinIntakeCommand(intakeSpinner));
 
         // Driver2
-        GamepadButton moveUpButton = new GamepadButton(driver, GamepadKeys.Button.A);
+        GamepadEx driver2 = new GamepadEx(gamepad2);
+
+        GamepadButton moveUpButton = new GamepadButton(driver2, GamepadKeys.Button.A);
         moveUpButton.whileHeld(new MoveOuttakeUpCommand(outtake));
 
         GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.B);
         moveDownButton.whileHeld(new MoveOuttakeDownCommand(outtake));
 
-        GamepadButton armHomeButton = new GamepadButton(driver, GamepadKeys.Button.Y);
+        GamepadButton armHomeButton = new GamepadButton(driver2, GamepadKeys.Button.Y);
         armHomeButton.whenPressed(new HomeArmCommand(arm));
 
-        GamepadButton armCommandButton = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
+        GamepadButton armCommandButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_UP);
         armCommandButton.whenPressed(new ControlArmCommand(arm,1000, telemetry));
 }
 }

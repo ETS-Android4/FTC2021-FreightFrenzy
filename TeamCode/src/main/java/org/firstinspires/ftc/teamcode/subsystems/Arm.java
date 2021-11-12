@@ -15,6 +15,10 @@ public class Arm extends SubsystemBase {
     private TouchSensor retractLimit;
 
     public Arm(HardwareMap hardwareMap, Telemetry telemetry) {
+        if (telemetry == null) {
+            throw new RuntimeException("Arm subsystem null telemetry");
+        }
+
         // Setup motor and limit switch
         motor = hardwareMap.get(DcMotorEx.class, "arm");
         retractLimit = hardwareMap.get(TouchSensor.class, "retractLimit");
@@ -67,6 +71,9 @@ public class Arm extends SubsystemBase {
     @Override
     public void periodic() {
 
+        if (telemetry == null) {
+            throw new RuntimeException("Arm periodic null telemetry");
+        }
         telemetry.addData("ArmExtension", getExtensionCounts());
         telemetry.addData("isFullyRetracted", isFullyRetracted());
         telemetry.addData("isFullyExtended", isFullyExtended());
