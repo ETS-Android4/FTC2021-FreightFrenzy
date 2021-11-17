@@ -8,8 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ControlArmCommand;
 import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
+import org.firstinspires.ftc.teamcode.commands.ExtendArmCommand;
 import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinCommand;
+import org.firstinspires.ftc.teamcode.commands.RetractArmCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampDownCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltOuttakeDownCommand;
@@ -73,7 +75,10 @@ public class DriveOpMode extends CommandOpMode {
         GamepadButton armHomeButton = new GamepadButton(driver2, GamepadKeys.Button.Y);
         armHomeButton.whenPressed(new HomeArmCommand(arm));
 
-        GamepadButton armCommandButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_UP);
-        armCommandButton.whenPressed(new ControlArmCommand(arm,1000, telemetry));
-}
+        GamepadButton extendArmButton = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
+        extendArmButton.whenPressed(new ExtendArmCommand(arm));
+
+        GamepadButton contractArmButton = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
+        contractArmButton.whenPressed(new RetractArmCommand(arm));
+    }
 }
