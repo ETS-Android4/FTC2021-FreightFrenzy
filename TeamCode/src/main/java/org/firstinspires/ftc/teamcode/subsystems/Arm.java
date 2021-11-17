@@ -22,7 +22,8 @@ public class Arm extends SubsystemBase {
 
         // Setup motor and limit switch
         motor = hardwareMap.get(DcMotorEx.class, "arm");
-        motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         retractLimit = hardwareMap.get(TouchSensor.class, "retractLimit");
         this.telemetry = telemetry;
     }
@@ -34,8 +35,9 @@ public class Arm extends SubsystemBase {
             stop();
             return;
         }
+        telemetry.addData("ArmState", "extending" );
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor.setPower(0.1);
+        motor.setPower(0.5);
     }
 
 
@@ -45,8 +47,9 @@ public class Arm extends SubsystemBase {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             return;
         }
+        telemetry.addData("ArmState", "retracting" );
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor.setPower(-0.1);
+        motor.setPower(-0.5);
     }
 
     public double getExtensionCounts() {
@@ -54,6 +57,7 @@ public class Arm extends SubsystemBase {
     }
 
     public void stop() {
+        telemetry.addData("ArmState", "stop" );
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor.setPower(0);
     }
@@ -62,7 +66,7 @@ public class Arm extends SubsystemBase {
 
     // Add an isFullyExtended
     public boolean isFullyExtended() {
-        return getExtensionCounts() >= 2048;
+        return getExtensionCounts() >= 1750;
     }
 
     // Add an isFullyRetracted
