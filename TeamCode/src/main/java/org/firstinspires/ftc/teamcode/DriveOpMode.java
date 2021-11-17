@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.ControlArmCommand;
 import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
 import org.firstinspires.ftc.teamcode.commands.ExtendArmCommand;
 import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
@@ -14,8 +13,8 @@ import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinCommand;
 import org.firstinspires.ftc.teamcode.commands.RetractArmCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampDownCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
-import org.firstinspires.ftc.teamcode.commands.TiltOuttakeDownCommand;
-import org.firstinspires.ftc.teamcode.commands.TiltOuttakeUpCommand;
+import org.firstinspires.ftc.teamcode.commands.TiltOuttakeOutCommand;
+import org.firstinspires.ftc.teamcode.commands.TiltOuttakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.SpinIntakeInCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
@@ -49,36 +48,40 @@ public class DriveOpMode extends CommandOpMode {
         );
 
         // Driver 1
-        GamepadEx driver = new GamepadEx(gamepad1);
+        {
+            GamepadEx driver = new GamepadEx(gamepad1);
 
-        GamepadButton duckSpinnerButton = new GamepadButton(driver, GamepadKeys.Button.LEFT_BUMPER);
-        duckSpinnerButton.whileHeld(new MoveDuckSpinnerSpinCommand(duckSpinner));
+            GamepadButton duckSpinnerButton = new GamepadButton(driver, GamepadKeys.Button.LEFT_BUMPER);
+            duckSpinnerButton.whileHeld(new MoveDuckSpinnerSpinCommand(duckSpinner));
 
-        GamepadButton intakeRampUp = new GamepadButton(driver, GamepadKeys.Button.A);
-        intakeRampUp.whileHeld(new TiltIntakeRampUpCommand(intakeramp));
+            GamepadButton intakeRampUp = new GamepadButton(driver, GamepadKeys.Button.A);
+            intakeRampUp.whileHeld(new TiltIntakeRampUpCommand(intakeramp));
 
-        GamepadButton intakeRampDown = new GamepadButton(driver, GamepadKeys.Button.B);
-        intakeRampDown.whileHeld(new TiltIntakeRampDownCommand(intakeramp));
+            GamepadButton intakeRampDown = new GamepadButton(driver, GamepadKeys.Button.B);
+            intakeRampDown.whileHeld(new TiltIntakeRampDownCommand(intakeramp));
 
-        GamepadButton spinIntakeIn = new GamepadButton(driver, GamepadKeys.Button.RIGHT_BUMPER);
-        spinIntakeIn.whileHeld(new SpinIntakeInCommand(intakeSpinner));
+            GamepadButton spinIntakeIn = new GamepadButton(driver, GamepadKeys.Button.RIGHT_BUMPER);
+            spinIntakeIn.whileHeld(new SpinIntakeInCommand(intakeSpinner));
+        }
 
         // Driver2
-        GamepadEx driver2 = new GamepadEx(gamepad2);
+        {
+            GamepadEx driver2 = new GamepadEx(gamepad2);
 
-        GamepadButton moveUpButton = new GamepadButton(driver2, GamepadKeys.Button.A);
-        moveUpButton.whileHeld(new TiltOuttakeUpCommand(outtake));
+            GamepadButton moveUpButton = new GamepadButton(driver2, GamepadKeys.Button.A);
+            moveUpButton.whileHeld(new TiltOuttakeInCommand(outtake));
 
-        GamepadButton moveDownButton = new GamepadButton(driver, GamepadKeys.Button.B);
-        moveDownButton.whileHeld(new TiltOuttakeDownCommand(outtake));
+            GamepadButton moveDownButton = new GamepadButton(driver2, GamepadKeys.Button.B);
+            moveDownButton.whileHeld(new TiltOuttakeOutCommand(outtake));
 
-        GamepadButton armHomeButton = new GamepadButton(driver2, GamepadKeys.Button.Y);
-        armHomeButton.whenPressed(new HomeArmCommand(arm));
+            GamepadButton armHomeButton = new GamepadButton(driver2, GamepadKeys.Button.Y);
+            armHomeButton.whenPressed(new HomeArmCommand(arm));
 
-        GamepadButton extendArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_UP);
-        extendArmButton.whileHeld(new ExtendArmCommand(arm));
+            GamepadButton extendArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_UP);
+            extendArmButton.whileHeld(new ExtendArmCommand(arm));
 
-        GamepadButton contractArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_DOWN);
-        contractArmButton.whileHeld(new RetractArmCommand(arm));
+            GamepadButton contractArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_DOWN);
+            contractArmButton.whileHeld(new RetractArmCommand(arm));
+        }
     }
 }

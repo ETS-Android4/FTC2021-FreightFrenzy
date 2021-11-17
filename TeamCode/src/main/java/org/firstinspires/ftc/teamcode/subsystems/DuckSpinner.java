@@ -16,7 +16,7 @@ public class DuckSpinner extends SubsystemBase {
         dcMotor.setPower(0);
    }
    public void spin() {
-      dcMotor.setPower(1);
+      dcMotor.setPower(-1);
    }
 
 }
