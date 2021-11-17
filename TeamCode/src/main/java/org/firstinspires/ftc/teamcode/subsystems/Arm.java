@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
@@ -21,6 +22,7 @@ public class Arm extends SubsystemBase {
 
         // Setup motor and limit switch
         motor = hardwareMap.get(DcMotorEx.class, "arm");
+        motor.setDirection(DcMotorSimple.Direction.FORWARD);
         retractLimit = hardwareMap.get(TouchSensor.class, "retractLimit");
         this.telemetry = telemetry;
     }
@@ -74,7 +76,7 @@ public class Arm extends SubsystemBase {
         if (telemetry == null) {
             throw new RuntimeException("Arm periodic null telemetry");
         }
-        telemetry.addData("ArmExtension", getExtensionCounts());
+        telemetry.addData("ArmExtensionCounts", getExtensionCounts());
         telemetry.addData("isFullyRetracted", isFullyRetracted());
         telemetry.addData("isFullyExtended", isFullyExtended());
         telemetry.update();
