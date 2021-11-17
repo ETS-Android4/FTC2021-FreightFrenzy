@@ -8,12 +8,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ControlArmCommand;
 import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
+import org.firstinspires.ftc.teamcode.commands.ExtendArmCommand;
 import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveIntakeRampDownCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveIntakeRampUpCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveOuttakeDownCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveOuttakeUpCommand;
+import org.firstinspires.ftc.teamcode.commands.RetractArmCommand;
 import org.firstinspires.ftc.teamcode.commands.SpinIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.SpinOuttakeCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
@@ -72,7 +74,10 @@ public class DriveOpMode extends CommandOpMode {
         GamepadButton armHomeButton = new GamepadButton(driver, GamepadKeys.Button.Y);
         armHomeButton.whenPressed(new HomeArmCommand(arm));
 
-        GamepadButton armCommandButton = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
-        armCommandButton.whenPressed(new ControlArmCommand(arm,1000, telemetry));
+        GamepadButton extendArmButton = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
+        extendArmButton.whenPressed(new ExtendArmCommand(arm,1000, telemetry));
+
+        GamepadButton contractArmButton = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
+        contractArmButton.whenPressed(new RetractArmCommand(arm,1000, telemetry));
 }
 }
