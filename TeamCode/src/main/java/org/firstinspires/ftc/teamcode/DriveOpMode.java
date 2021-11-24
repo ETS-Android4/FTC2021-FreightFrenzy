@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -76,6 +78,7 @@ public class DriveOpMode extends CommandOpMode {
 
             GamepadButton armHomeButton = new GamepadButton(driver2, GamepadKeys.Button.Y);
             armHomeButton.whenPressed(new HomeArmCommand(arm));
+            armHomeButton.whenPressed(new TiltOuttakeInCommand(outtake));
 
             GamepadButton extendArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_UP);
             extendArmButton.whileHeld(new ExtendArmCommand(arm));

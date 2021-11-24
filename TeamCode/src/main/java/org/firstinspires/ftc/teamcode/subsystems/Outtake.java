@@ -13,12 +13,12 @@ public class Outtake extends SubsystemBase {
     }
 
     public void in() {
-        servo.setPosition(0.7);
+        servo.setPosition(0.675);
     }
 
 
     public void out() {
-        servo.setPosition(0.2);
+        servo.setPosition(0.1);
     }
 
 
