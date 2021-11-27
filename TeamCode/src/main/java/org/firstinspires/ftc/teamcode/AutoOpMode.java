@@ -41,7 +41,7 @@ public class AutoOpMode extends CommandOpMode {
 
     @Override
     public void initialize(){
-        drive = new Drive(hardwareMap);
+        drive = new Drive(hardwareMap,telemetry);
         duckSpinner = new DuckSpinner(hardwareMap);
         outtake = new Outtake(hardwareMap);
         arm = new Arm(hardwareMap, telemetry);
@@ -58,7 +58,7 @@ public class AutoOpMode extends CommandOpMode {
         intakeSpinner.stow();
 
         schedule(
-                new DriveForwardCommand(drive, 12, 0.5)
+                new DriveForwardCommand(telemetry, drive, 12*3, 0.5)
 //                new TurnInPlace(drive, 90)
         );
     }

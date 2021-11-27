@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -19,9 +20,12 @@ public class Drive extends SubsystemBase {
     private DcMotor rightFrontMotor;
     private DcMotor rightBackMotor;
     private BNO055IMU imu;
+    private Telemetry t;
 
 
-    public Drive(HardwareMap hardwareMap) {
+    public Drive(HardwareMap hardwareMap, Telemetry t) {
+        this.t = t;
+
         leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
         leftBackMotor = hardwareMap.get(DcMotor.class, "drive_lb");
         rightFrontMotor = hardwareMap.get(DcMotor.class, "drive_rf");
@@ -100,16 +104,27 @@ public class Drive extends SubsystemBase {
         return getInchesFromCount(leftFrontMotor.getCurrentPosition());
     }
     public double getInchesFromCount(double count){
-        return count/47.1629148;
+        return count/44.31372549;
     }
     public int getCountFromInches (double inches){
-        return (int) (inches*47.1629148);
+        return (int) (inches*44.31372549);
     }
     public void stop(){
         leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public int[] getAllEncoderCounts() {
+        int[] counts = new int[4];
+
+        counts[0] = leftFrontMotor.getCurrentPosition();
+        counts[1] = leftBackMotor.getCurrentPosition();
+        counts[2] = rightFrontMotor.getCurrentPosition();
+        counts[3] = rightBackMotor.getCurrentPosition();
+
+        return counts;
     }
 
     public double inputCurve(double input) {
@@ -127,5 +142,12 @@ public class Drive extends SubsystemBase {
         return AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle);
     }
 
+    @Override
+    public void periodic() {
+        t.addData("LeftFrontCounts", leftFrontMotor.getCurrentPosition());
+        t.addData("LeftBackCounts", leftBackMotor.getCurrentPosition());
+        t.addData("RightFrontCounts", rightFrontMotor.getCurrentPosition());
+        t.addData("RightBackCounts", rightBackMotor.getCurrentPosition());
+    }
 }
 

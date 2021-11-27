@@ -39,7 +39,7 @@ public class DriveOpMode extends CommandOpMode {
 
     @Override
     public void initialize(){
-        drive = new Drive(hardwareMap);
+        drive = new Drive(hardwareMap, telemetry);
         duckSpinner = new DuckSpinner(hardwareMap);
         outtake = new Outtake(hardwareMap);
         arm = new Arm(hardwareMap, telemetry);
