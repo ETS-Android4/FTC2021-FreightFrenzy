@@ -45,8 +45,12 @@ public class DriveOpMode extends CommandOpMode {
         arm = new Arm(hardwareMap, telemetry);
         intakeramp = new IntakeRamp(hardwareMap);
         intakeSpinner = new IntakeSpinner(hardwareMap);
-        drive.setDefaultCommand
-                (new DriveWithGamepadCommand(gamepad1, drive)
+
+        intakeramp.setDefaultCommand(
+                new TiltIntakeRampUpCommand(intakeramp)
+        );
+        drive.setDefaultCommand(
+                new DriveWithGamepadCommand(gamepad1, drive)
         );
 
         // Driver 1
@@ -56,14 +60,13 @@ public class DriveOpMode extends CommandOpMode {
             GamepadButton duckSpinnerButton = new GamepadButton(driver, GamepadKeys.Button.LEFT_BUMPER);
             duckSpinnerButton.whileHeld(new MoveDuckSpinnerSpinCommand(duckSpinner));
 
-            GamepadButton intakeRampUp = new GamepadButton(driver, GamepadKeys.Button.A);
-            intakeRampUp.whileHeld(new TiltIntakeRampUpCommand(intakeramp));
-
-            GamepadButton intakeRampDown = new GamepadButton(driver, GamepadKeys.Button.B);
-            intakeRampDown.whileHeld(new TiltIntakeRampDownCommand(intakeramp));
-
             GamepadButton spinIntakeIn = new GamepadButton(driver, GamepadKeys.Button.RIGHT_BUMPER);
-            spinIntakeIn.whileHeld(new SpinIntakeInCommand(intakeSpinner));
+            spinIntakeIn.whileHeld(new ParallelCommandGroup(
+                    new SpinIntakeInCommand(intakeSpinner, arm),
+                    new TiltOuttakeInCommand(outtake),
+                    new TiltIntakeRampDownCommand(intakeramp)
+            ));
+
         }
 
         // Driver2

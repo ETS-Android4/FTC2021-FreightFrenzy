@@ -10,13 +10,14 @@ public class IntakeRamp extends SubsystemBase {
 
     public IntakeRamp(HardwareMap hardwareMap){
         servo = hardwareMap.get(Servo.class, "servo");
+        servo.setDirection(Servo.Direction.REVERSE);
     }
 
     public void up() {
-        servo.setPosition(1);
+        servo.setPosition(0.52);
     }
 
     public void down() {
-        servo.setPosition(0);
+        servo.setPosition(0.37);
     }
 }

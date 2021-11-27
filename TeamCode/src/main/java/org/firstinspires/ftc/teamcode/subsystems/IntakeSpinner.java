@@ -16,7 +16,6 @@ public class IntakeSpinner extends SubsystemBase {
         servo = hardwareMap.get(Servo.class, "servoSpinner");
         servo.setDirection(Servo.Direction.REVERSE);
         dcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        servo.setPosition(0.0);
     }
 
     public void intake() {
@@ -28,6 +27,10 @@ public class IntakeSpinner extends SubsystemBase {
         dcMotor.setPower(0);
         servo.setPosition(0.3);
 
+    }
+
+    public void stow() {
+        servo.setPosition(0.0);
     }
 
     public void outtake() {

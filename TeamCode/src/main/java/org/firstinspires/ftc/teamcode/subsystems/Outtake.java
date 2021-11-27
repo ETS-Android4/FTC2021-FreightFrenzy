@@ -21,5 +21,11 @@ public class Outtake extends SubsystemBase {
         servo.setPosition(0.1);
     }
 
+    public void stow() {
+        servo.setPosition(0.4);
+    }
+
+
+
 
 }

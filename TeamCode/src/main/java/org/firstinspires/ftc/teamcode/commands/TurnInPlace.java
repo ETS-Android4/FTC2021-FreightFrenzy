@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drive;
 
 public class TurnInPlace extends CommandBase {
 
-    private Drive drive;
+    private Drive drive = null;
     private double goal;
     private boolean isFinished;
 
