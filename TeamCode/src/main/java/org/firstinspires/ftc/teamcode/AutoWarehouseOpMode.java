@@ -1,24 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
-import com.arcrobotics.ftclib.command.button.GamepadButton;
-import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.DriveForwardCommand;
-import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
-import org.firstinspires.ftc.teamcode.commands.ExtendArmCommand;
-import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
-import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinCommand;
-import org.firstinspires.ftc.teamcode.commands.RetractArmCommand;
-import org.firstinspires.ftc.teamcode.commands.SpinIntakeInCommand;
-import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampDownCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
-import org.firstinspires.ftc.teamcode.commands.TiltOuttakeInCommand;
-import org.firstinspires.ftc.teamcode.commands.TiltOuttakeOutCommand;
 import org.firstinspires.ftc.teamcode.commands.TurnInPlace;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
@@ -27,9 +13,9 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeRamp;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
-@Autonomous(name = "Test Auto")
+@Autonomous(name = "Auto Warehouse")
 
-public class AutoOpMode extends CommandOpMode {
+public class AutoWarehouseOpMode extends CommandOpMode {
 
 
     private DuckSpinner duckSpinner;
@@ -58,8 +44,7 @@ public class AutoOpMode extends CommandOpMode {
         intakeSpinner.stow();
 
         schedule(
-                //new DriveForwardCommand(telemetry, drive, 12*3, 0.5)
-                new TurnInPlace(drive, -90, telemetry)
+                new DriveForwardCommand(telemetry, drive, 12*4, 0.5)
         );
     }
 }
