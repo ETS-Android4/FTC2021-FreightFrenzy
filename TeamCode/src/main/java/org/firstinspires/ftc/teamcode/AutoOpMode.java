@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
 import org.firstinspires.ftc.teamcode.commands.ExtendArmCommand;
 import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampDownCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltOuttakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltOuttakeOutCommand;
+import org.firstinspires.ftc.teamcode.commands.TurnInPlace;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.DuckSpinner;
@@ -54,5 +56,10 @@ public class AutoOpMode extends CommandOpMode {
         sleep(1500);
         intakeramp.down();
         intakeSpinner.stow();
+
+        schedule(
+                new DriveForwardCommand(drive, 12, 0.5)
+//                new TurnInPlace(drive, 90)
+        );
     }
 }

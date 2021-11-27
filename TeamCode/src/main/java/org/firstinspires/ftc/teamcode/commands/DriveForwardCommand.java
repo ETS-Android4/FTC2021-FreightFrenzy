@@ -7,11 +7,13 @@ import org.firstinspires.ftc.teamcode.subsystems.Drive;
 public class DriveForwardCommand extends CommandBase {
     private Drive drive;
     private double goal;
+    private double power;
     private boolean isFinished;
 
-    public DriveForwardCommand(Drive drive, double goal) {
+    public DriveForwardCommand(Drive drive, double goal, double power) {
         this.drive = drive;
         this.goal = goal;
+        this.power = power;
         addRequirements(drive);
     }
     @Override
@@ -22,7 +24,7 @@ public class DriveForwardCommand extends CommandBase {
 
     @Override
     public void execute() {
-        drive.runToPosition(goal, 0.5);
+        drive.runToPosition(goal, power);
         double error = goal - drive.getLeftFrontMotorInches();
         double kTolerance = 0.25;
         isFinished = Math.abs(error) < kTolerance;
