@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Arm;
 
 public class ControlArmCommand extends CommandBase {
 
-    private final double kTollerance = 50;
+    private final double kTolerance = 50;
     private final Arm arm_;
     private final double goalCounts_;
     private Telemetry telemetry_;
