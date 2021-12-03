@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.DriveForwardCommand;
+import org.firstinspires.ftc.teamcode.commands.DriveStrafeCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
 import org.firstinspires.ftc.teamcode.commands.TurnInPlace;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
@@ -14,9 +14,9 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeRamp;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
-@Autonomous(name = "Auto Storage")
+//@Autonomous(name = "Auto Storage")
 
-public class AutoStorageOpMode extends CommandOpMode {
+public abstract class AutoStorageOpModeBaseV2 extends CommandOpMode {
 
 
     private DuckSpinner duckSpinner;
@@ -25,6 +25,12 @@ public class AutoStorageOpMode extends CommandOpMode {
     private IntakeRamp intakeramp;
     private IntakeSpinner intakeSpinner;
     private Arm arm;
+    private final double strafeCounts;
+
+    public AutoStorageOpModeBaseV2(double strafeCounts){
+
+        this.strafeCounts = strafeCounts;
+    }
 
     @Override
     public void initialize(){
@@ -47,8 +53,7 @@ public class AutoStorageOpMode extends CommandOpMode {
         schedule(
                 new SequentialCommandGroup(
                         new DriveForwardCommand(telemetry, drive, 28.7, 0.5),
-                        new TurnInPlace(drive, -90, telemetry),
-                        new DriveForwardCommand(telemetry, drive, 26.5, 0.5)
+                        new DriveStrafeCommand(telemetry, drive, strafeCounts, 0.5)
                 )
         );
     }
