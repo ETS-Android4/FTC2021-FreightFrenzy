@@ -15,8 +15,10 @@ public class DuckSpinner extends SubsystemBase {
    public void stop() {
         dcMotor.setPower(0);
    }
-   public void spin() {
+   public void spinBlue() {
       dcMotor.setPower(-1);
    }
-
+    public void spinRed() {
+        dcMotor.setPower(1);
+    }
 }
