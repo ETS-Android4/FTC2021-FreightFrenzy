@@ -7,6 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class AutoWarehouseBlueOpMode extends AutoOpModeBase {
     // TODO we need to change the numbers
     public AutoWarehouseBlueOpMode() {
-        super(28.7, 90, 26.5);
+        super(28.7-7, 90, 50);
     }
 }
