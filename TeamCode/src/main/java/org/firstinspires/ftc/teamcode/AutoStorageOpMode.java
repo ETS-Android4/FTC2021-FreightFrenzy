@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -45,6 +46,7 @@ public class AutoStorageOpMode extends CommandOpMode {
         intakeSpinner.stow();
 
         schedule(
+                new InstantCommand(() -> intakeSpinner.stop(), intakeSpinner),
                 new SequentialCommandGroup(
                         new DriveForwardCommand(telemetry, drive, 28.7, 0.5),
                         new TurnInPlace(drive, -90, telemetry),

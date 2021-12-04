@@ -42,7 +42,7 @@ public class ControlArmCommand extends CommandBase {
     }
 
     public boolean isFinished() {
-        return Math.abs(goalCounts_ - arm_.getExtensionCounts()) < kTollerance;
+        return Math.abs(goalCounts_ - arm_.getExtensionCounts()) < kTolerance;
     }
 
     public void end(boolean interrupted) {

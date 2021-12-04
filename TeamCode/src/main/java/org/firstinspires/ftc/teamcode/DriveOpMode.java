@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -11,7 +10,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
 import org.firstinspires.ftc.teamcode.commands.ExtendArmCommand;
 import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
-import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinCommand;
+import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinBlueCommand;
+import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinRedCommand;
 import org.firstinspires.ftc.teamcode.commands.RetractArmCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampDownCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
@@ -57,8 +57,10 @@ public class DriveOpMode extends CommandOpMode {
         {
             GamepadEx driver = new GamepadEx(gamepad1);
 
-            GamepadButton duckSpinnerButton = new GamepadButton(driver, GamepadKeys.Button.LEFT_BUMPER);
-            duckSpinnerButton.whileHeld(new MoveDuckSpinnerSpinCommand(duckSpinner));
+            GamepadButton duckSpinnerBlueButton = new GamepadButton(driver, GamepadKeys.Button.X);
+            duckSpinnerBlueButton.whileHeld(new MoveDuckSpinnerSpinBlueCommand(duckSpinner));
+            GamepadButton duckSpinnerRedButton = new GamepadButton(driver, GamepadKeys.Button.B);
+            duckSpinnerRedButton.whileHeld(new MoveDuckSpinnerSpinRedCommand(duckSpinner));
 
             GamepadButton spinIntakeIn = new GamepadButton(driver, GamepadKeys.Button.RIGHT_BUMPER);
             spinIntakeIn.whileHeld(new ParallelCommandGroup(

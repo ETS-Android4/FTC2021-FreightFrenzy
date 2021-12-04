@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.DriveForwardCommand;
@@ -44,6 +45,7 @@ public class AutoWarehouseOpMode extends CommandOpMode {
         intakeSpinner.stow();
 
         schedule(
+                new InstantCommand(() -> intakeSpinner.stop(), intakeSpinner),
                 new DriveForwardCommand(telemetry, drive, 12*4, 0.5)
         );
     }
