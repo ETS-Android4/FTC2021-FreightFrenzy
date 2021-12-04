@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeRamp;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
-@Autonomous(name = "Auto Warehouse")
+@Autonomous(name = "Warehouse Basic")
 
 public class AutoWarehouseOpMode extends CommandOpMode {
 

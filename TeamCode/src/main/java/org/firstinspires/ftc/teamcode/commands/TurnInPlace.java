@@ -41,7 +41,7 @@ public class TurnInPlace extends CommandBase {
         //figure out how much to turn :(
         double kP = -0.010;
         double output = error * kP;
-        double floor = 0.19;
+        double floor = 0.25;
         if (Math.abs(output) < floor) {
             output = Math.copySign(floor, output);
         }

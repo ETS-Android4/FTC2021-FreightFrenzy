@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
 import org.firstinspires.ftc.teamcode.commands.TurnInPlace;
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
 @Autonomous(name = "Test Auto")
-
+@Disabled
 public class AutoOpMode extends CommandOpMode {
 
 
