@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinBlueCommand;
 import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinRedCommand;
 import org.firstinspires.ftc.teamcode.commands.RetractArmCommand;
+import org.firstinspires.ftc.teamcode.commands.StowOuttakeCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampDownCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltOuttakeOutCommand;
@@ -51,6 +52,10 @@ public class DriveOpMode extends CommandOpMode {
         );
         drive.setDefaultCommand(
                 new DriveWithGamepadCommand(gamepad1, drive)
+        );
+
+        outtake.setDefaultCommand(
+                new StowOuttakeCommand(outtake)
         );
 
         // Driver 1
