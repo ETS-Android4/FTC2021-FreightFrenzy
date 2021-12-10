@@ -1,82 +1,95 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.button.GamepadButton;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-@TeleOp
+import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
+import org.firstinspires.ftc.teamcode.commands.ExtendArmCommand;
+import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
+import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinBlueCommand;
+import org.firstinspires.ftc.teamcode.commands.MoveDuckSpinnerSpinRedCommand;
+import org.firstinspires.ftc.teamcode.commands.RetractArmCommand;
+import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampDownCommand;
+import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
+import org.firstinspires.ftc.teamcode.commands.TiltOuttakeOutCommand;
+import org.firstinspires.ftc.teamcode.commands.TiltOuttakeInCommand;
+import org.firstinspires.ftc.teamcode.commands.SpinIntakeInCommand;
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
+import org.firstinspires.ftc.teamcode.subsystems.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.DuckSpinner;
+import org.firstinspires.ftc.teamcode.subsystems.IntakeRamp;
+import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
+import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
-public class DriveOpMode extends OpMode {
+@TeleOp(name = "TeleOp")
 
-    private DcMotor leftFrontMotor;
-    private DcMotor leftBackMotor;
-    private DcMotor rightFrontMotor;
-    private DcMotor rightBackMotor;
-
-    public void init(){
-        leftFrontMotor = hardwareMap.get(DcMotor.class, "drive_lf");
-        leftBackMotor = hardwareMap.get(DcMotor.class, "drive_lb");
-        rightFrontMotor = hardwareMap.get(DcMotor.class, "drive_rf");
-        rightBackMotor = hardwareMap.get(DcMotor.class, "drive_rb");
-
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftFrontMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+public class DriveOpMode extends CommandOpMode {
 
 
-    }
+    private DuckSpinner duckSpinner;
+    private Drive drive;
+    private Outtake outtake;
+    private IntakeRamp intakeramp;
+    private IntakeSpinner intakeSpinner;
+    private Arm arm;
 
-    public void loop(){
-        // gamepad
-        double forward = gamepad1.left_stick_y;
-        double turn = gamepad1.left_stick_x;
-        double strafe = gamepad1.right_stick_x;
+    @Override
+    public void initialize(){
+        drive = new Drive(hardwareMap, telemetry);
+        duckSpinner = new DuckSpinner(hardwareMap);
+        outtake = new Outtake(hardwareMap);
+        arm = new Arm(hardwareMap, telemetry);
+        intakeramp = new IntakeRamp(hardwareMap);
+        intakeSpinner = new IntakeSpinner(hardwareMap);
 
-        forward = -forward;
+        intakeramp.setDefaultCommand(
+                new TiltIntakeRampUpCommand(intakeramp)
+        );
+        drive.setDefaultCommand(
+                new DriveWithGamepadCommand(gamepad1, drive)
+        );
 
-        forward = inputCurve(forward);
+        // Driver 1
+        {
+            GamepadEx driver = new GamepadEx(gamepad1);
 
-        turn = inputCurve(turn);
+            GamepadButton duckSpinnerBlueButton = new GamepadButton(driver, GamepadKeys.Button.X);
+            duckSpinnerBlueButton.whileHeld(new MoveDuckSpinnerSpinBlueCommand(duckSpinner));
+            GamepadButton duckSpinnerRedButton = new GamepadButton(driver, GamepadKeys.Button.B);
+            duckSpinnerRedButton.whileHeld(new MoveDuckSpinnerSpinRedCommand(duckSpinner));
 
-        strafe = inputCurve(strafe);
+            GamepadButton spinIntakeIn = new GamepadButton(driver, GamepadKeys.Button.RIGHT_BUMPER);
+            spinIntakeIn.whileHeld(new ParallelCommandGroup(
+                    new SpinIntakeInCommand(intakeSpinner, arm),
+                    new TiltOuttakeInCommand(outtake),
+                    new TiltIntakeRampDownCommand(intakeramp)
+            ));
 
-        //Calculate speed for each motor
-        double frontLeft = forward + turn +  strafe;
-        double frontRight = forward - turn - strafe;
-        double backLeft = forward + turn - strafe;
-        double backRight = forward - turn + strafe;
+        }
 
-        //set motor
-        leftFrontMotor.setPower(frontLeft);
-        leftBackMotor.setPower(backLeft);
-        rightFrontMotor.setPower(frontRight);
-        rightBackMotor.setPower(backRight);
+        // Driver2
+        {
+            GamepadEx driver2 = new GamepadEx(gamepad2);
 
-        telemetry.addData("forward", forward);
-        telemetry.addData("frontLeft", frontLeft);
-        telemetry.addData("frontRight", frontRight);
-        telemetry.addData("backLeft", backLeft);
-        telemetry.addData("backRight", backRight);
-        telemetry.update();
+            GamepadButton moveUpButton = new GamepadButton(driver2, GamepadKeys.Button.A);
+            moveUpButton.whileHeld(new TiltOuttakeInCommand(outtake));
 
-    }
+            GamepadButton moveDownButton = new GamepadButton(driver2, GamepadKeys.Button.B);
+            moveDownButton.whileHeld(new TiltOuttakeOutCommand(outtake));
 
-    public double inputCurve(double input) {
-        if(0 <= input) {
-            // input is postive
-            return input * input;
-        } else {
-            // input is negative
-            return -(input * input);
+            GamepadButton armHomeButton = new GamepadButton(driver2, GamepadKeys.Button.Y);
+            armHomeButton.whenPressed(new HomeArmCommand(arm));
+            armHomeButton.whenPressed(new TiltOuttakeInCommand(outtake));
+
+            GamepadButton extendArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_UP);
+            extendArmButton.whileHeld(new ExtendArmCommand(arm));
+
+            GamepadButton contractArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_DOWN);
+            contractArmButton.whileHeld(new RetractArmCommand(arm));
         }
     }
-
-
 }
