@@ -26,8 +26,13 @@ public class DriveWithGamepadCommand extends CommandBase {
         double forward = gamepad.left_stick_y;
         double turn = gamepad.right_stick_x;
         double strafe = gamepad.left_stick_x;
-
         forward = -forward;
+
+        if (Math.abs(strafe) <= Math.abs(forward)){
+          strafe = 0;
+        }else {
+            strafe = Math.copySign(Math.abs(strafe) - Math.abs(forward), strafe);
+        }
 
         drive.arcadeDrive(forward, turn, strafe, true);
 
