@@ -100,6 +100,23 @@ public class Drive extends SubsystemBase {
         rightFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
     }
+    public void runToPositionStrafe(int distanceCounts, double power){
+        leftFrontMotor.setTargetPosition(distanceCounts);
+        leftBackMotor.setTargetPosition(-distanceCounts);
+        rightFrontMotor.setTargetPosition(-distanceCounts);
+        rightBackMotor.setTargetPosition(distanceCounts);
+
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //set motor
+        leftFrontMotor.setPower(power);
+        leftBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+        rightBackMotor.setPower(power);
+    }
     public double getLeftFrontMotorInches(){
         return getInchesFromCount(leftFrontMotor.getCurrentPosition());
     }
