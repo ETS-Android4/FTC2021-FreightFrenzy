@@ -41,6 +41,11 @@ public class Drive extends SubsystemBase {
         rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -87,6 +92,23 @@ public class Drive extends SubsystemBase {
         leftFrontMotor.setTargetPosition(distanceCounts);
         leftBackMotor.setTargetPosition(distanceCounts);
         rightFrontMotor.setTargetPosition(distanceCounts);
+        rightBackMotor.setTargetPosition(distanceCounts);
+
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //set motor
+        leftFrontMotor.setPower(power);
+        leftBackMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+        rightBackMotor.setPower(power);
+    }
+    public void runToPositionStrafe(int distanceCounts, double power){
+        leftFrontMotor.setTargetPosition(distanceCounts);
+        leftBackMotor.setTargetPosition(-distanceCounts);
+        rightFrontMotor.setTargetPosition(-distanceCounts);
         rightBackMotor.setTargetPosition(distanceCounts);
 
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
