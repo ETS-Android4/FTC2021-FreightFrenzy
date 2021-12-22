@@ -7,12 +7,12 @@ import org.firstinspires.ftc.teamcode.subsystems.Drive;
 
 public class DriveStrafeCommand extends CommandBase {
     private Drive drive;
-    private double goalCounts;
+    private int goalCounts;
     private double power;
     private Telemetry t;
     private boolean isFinished;
 
-    public DriveStrafeCommand(Telemetry t, Drive drive, double goalCounts, double power) {
+    public DriveStrafeCommand(Telemetry t, Drive drive, int goalCounts, double power) {
         this.drive = drive;
         this.goalCounts = goalCounts;
         this.power = power;
@@ -27,7 +27,7 @@ public class DriveStrafeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        drive.runToPosition(goalCounts, power);
+        drive.runToPositionStrafe(goalCounts, power);
 //        double error = goal - drive.getLeftFrontMotorInches();
         double kTolerance = 0.25;
         //isFinished = Math.abs(error) < kTolerance;

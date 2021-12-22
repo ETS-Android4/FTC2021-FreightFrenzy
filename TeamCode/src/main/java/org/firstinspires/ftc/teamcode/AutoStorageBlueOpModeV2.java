@@ -6,6 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 public class AutoStorageBlueOpModeV2 extends AutoStorageOpModeBaseV2{
     public AutoStorageBlueOpModeV2() {
-        super(-1000);
+        super(1500);
     }
 }

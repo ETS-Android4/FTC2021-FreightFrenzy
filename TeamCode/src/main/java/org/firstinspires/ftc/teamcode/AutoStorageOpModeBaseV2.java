@@ -52,8 +52,8 @@ public abstract class AutoStorageOpModeBaseV2 extends CommandOpMode {
 
         schedule(
                 new SequentialCommandGroup(
-                        new DriveForwardCommand(telemetry, drive, 28.7, 0.5),
-                        new DriveStrafeCommand(telemetry, drive, strafeCounts, 0.5)
+                        new DriveForwardCommand(telemetry, drive, 25.7, 0.5),
+                        new DriveStrafeCommand(telemetry, drive, (int) strafeCounts, 0.5)
                 )
         );
     }
