@@ -51,10 +51,10 @@ public class DuckAutoRed extends CommandOpMode {
                 new InstantCommand(() -> intakeSpinner.stop(), intakeSpinner),
                 new SequentialCommandGroup(
                     new DriveForwardCommand(telemetry, drive, 24, 0.5),
-                    new DriveStrafeCommand(telemetry, drive, 42*49, 0.5),
-                    new DriveForwardCommand(telemetry, drive, -8, 0.5),
+                    new DriveStrafeCommand(telemetry, drive, -30*49, 0.5),
+                    new DriveForwardCommand(telemetry, drive, -16.5, 0.25),
                     new MoveDuckSpinnerSpinRedCommand(duckSpinner).withTimeout(2000),
-                    new DriveStrafeCommand(telemetry, drive, -8*49, 0.5)
+                    new DriveForwardCommand(telemetry, drive, 17, 0.5)
                 )
         );
     }
