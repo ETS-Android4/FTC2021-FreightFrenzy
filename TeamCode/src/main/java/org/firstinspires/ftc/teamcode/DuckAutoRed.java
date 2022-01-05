@@ -48,7 +48,7 @@ public class DuckAutoRed extends CommandOpMode {
         intakeSpinner.stow();
 
         schedule(
-                new InstantCommand(() -> intakeSpinner.stop(), intakeSpinner),
+                //new InstantCommand(() -> intakeSpinner.stop(), intakeSpinner),
                 new SequentialCommandGroup(
                     new DriveForwardCommand(telemetry, drive, 12, 0.5),
                     new DriveStrafeCommand(telemetry, drive, -30*49, 0.5),
