@@ -49,12 +49,15 @@ public class DuckAutoBlue extends CommandOpMode {
 
         schedule(
                 new SequentialCommandGroup(
-                        
-                    new DriveStrafeCommand(telemetry, drive, 24*49, 0.5),
-                    new DriveForwardCommand(telemetry, drive, -42, 0.5),
-                    new DriveStrafeCommand(telemetry, drive, -8*49, 0.25),
-                    new MoveDuckSpinnerSpinBlueCommand(duckSpinner).withTimeout(2000),
-                    new DriveStrafeCommand(telemetry, drive, 20*49, 0.5)
+
+                    //new DriveStrafeCommand(telemetry, drive, 24*49, 0.5),
+                    // Drive into the duck spinner, so we can spin it
+                    new DriveForwardCommand(telemetry, drive, -22, 0.25),
+                    new MoveDuckSpinnerSpinRedCommand(duckSpinner).withTimeout(2000),
+                    // strafe in between marker + spinner
+                    new DriveStrafeCommand(telemetry, drive, 27*49, 0.5),
+                    // drive backwards into wall
+                    new DriveForwardCommand(telemetry, drive, -8.5, 0.25)
 
                 )
         );
