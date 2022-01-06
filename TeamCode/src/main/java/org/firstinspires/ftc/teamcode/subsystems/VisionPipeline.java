@@ -26,11 +26,16 @@ public class VisionPipeline extends OpenCvPipeline {
         UNKNOWN
     }
 
+    /*
+     * Cache
+     */
+    private Mat output = new Mat();
+
     @Override
     public Mat processFrame(Mat input) {
 //        System.out.println(input.dump());
         // I/System.out: Mat [ 240*320*CV_8UC4, isCont=true, isSubmat=false, nativeObj=0xe870b880, dataAddr=0xce783000 ]
-        System.out.println(input.toString());
+        //System.out.println(input.toString());
 
         Imgproc.cvtColor(input, input, Imgproc.COLOR_RGB2BGR);
 
@@ -99,7 +104,7 @@ public class VisionPipeline extends OpenCvPipeline {
         //
         // Annotate the source image
         //
-        Mat output = input.clone();
+        input.copyTo(output);
 
         double leftAlpha = 0.1;
         double centerAlpha = 0.1;
@@ -128,6 +133,7 @@ public class VisionPipeline extends OpenCvPipeline {
         Imgproc.rectangle(overlay, rect, color, -1);
 
         Core.addWeighted(overlay, alpha, dest, 1, 1-alpha, dest);
+        overlay.release();
     }
 
 }
