@@ -25,6 +25,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.subsystems.Vision;
+import org.firstinspires.ftc.teamcode.subsystems.VisionPipeline;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -64,8 +66,9 @@ public class WebcamExample extends LinearOpMode
          * of a frame from the camera. Note that switching pipelines on-the-fly
          * (while a streaming session is in flight) *IS* supported.
          */
-        webcam.setPipeline(new SamplePipeline());
-        //webcam.setPipeline(new VisionPipeline());
+        //webcam.setPipeline(new SamplePipeline());
+        VisionPipeline pl = new VisionPipeline();
+        webcam.setPipeline(pl);
 
         /*
          * Open the connection to the camera device. New in v1.4.0 is the ability
@@ -123,6 +126,7 @@ public class WebcamExample extends LinearOpMode
             /*
              * Send some stats to the telemetry
              */
+            telemetry.addData("Marker Placement", pl.getMarkerPlacement());
             telemetry.addData("Frame Count", webcam.getFrameCount());
             telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
             telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());

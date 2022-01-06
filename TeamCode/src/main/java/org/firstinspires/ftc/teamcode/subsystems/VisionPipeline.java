@@ -26,6 +26,12 @@ public class VisionPipeline extends OpenCvPipeline {
         UNKNOWN
     }
 
+    private MarkerPlacement markerPlacement = MarkerPlacement.UNKNOWN;
+
+    public MarkerPlacement getMarkerPlacement() {
+        return markerPlacement;
+    }
+
     /*
      * Cache
      */
@@ -65,7 +71,7 @@ public class VisionPipeline extends OpenCvPipeline {
                 new Point(input.width(), input.height())
         );
 
-        MarkerPlacement markerPlacement = MarkerPlacement.UNKNOWN;
+        markerPlacement = MarkerPlacement.UNKNOWN;
 
         int[] markerIDArray = new int[0];
         if (!markerCorners.isEmpty()) {
