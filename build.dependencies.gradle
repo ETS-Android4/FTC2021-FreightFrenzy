@@ -5,7 +5,10 @@ repositories {
     flatDir {
         dirs rootProject.file('libs')
     }
-    mavenLocal()
+    //mavenLocal()
+    maven {
+        url rootProject.file('m2')
+    }
 }
 
 dependencies {
