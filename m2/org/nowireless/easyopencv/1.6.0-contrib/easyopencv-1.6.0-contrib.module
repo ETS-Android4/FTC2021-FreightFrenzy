@@ -1,0 +1,77 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.nowireless",
+    "module": "easyopencv",
+    "version": "1.6.0-contrib",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.1.1",
+      "buildId": "xddomnnpgbaf7b6dxk2lbwxyr4"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.nowireless",
+          "module": "opencv-repackaged",
+          "version": {
+            "requires": "4.5.5-contrib"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "easyopencv-1.6.0-contrib.aar",
+          "url": "easyopencv-1.6.0-contrib.aar",
+          "size": 293448,
+          "sha512": "d5b44ff8485bada46e45cc8f1449906ec651ed2cb8dc1217c6ed2f145e6f8e9edcbd114b60eeeee8cf0c7fd6d8a7ef5e92344626383c6796d4ea4739adfd46ab",
+          "sha256": "e1a88850f3779c2df3f004a30a3ae31cc0a2e1917bcac78096413eac974c4930",
+          "sha1": "aab391bb6db6863782bd34f7380f06e4be6d48eb",
+          "md5": "c89a32e006378172ec084e8ca0305a79"
+        }
+      ]
+    },
+    {
+      "name": "releaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.nowireless",
+          "module": "opencv-repackaged",
+          "version": {
+            "requires": "4.5.5-contrib"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "easyopencv-1.6.0-contrib.aar",
+          "url": "easyopencv-1.6.0-contrib.aar",
+          "size": 293448,
+          "sha512": "d5b44ff8485bada46e45cc8f1449906ec651ed2cb8dc1217c6ed2f145e6f8e9edcbd114b60eeeee8cf0c7fd6d8a7ef5e92344626383c6796d4ea4739adfd46ab",
+          "sha256": "e1a88850f3779c2df3f004a30a3ae31cc0a2e1917bcac78096413eac974c4930",
+          "sha1": "aab391bb6db6863782bd34f7380f06e4be6d48eb",
+          "md5": "c89a32e006378172ec084e8ca0305a79"
+        }
+      ]
+    }
+  ]
+}
