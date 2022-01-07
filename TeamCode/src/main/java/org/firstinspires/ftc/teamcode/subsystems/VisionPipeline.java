@@ -58,16 +58,17 @@ public class VisionPipeline extends OpenCvPipeline {
         //
         // Determine which team marker spot it is on (If markers are present)
         //
+
         Rect leftArea = new Rect(
                 new Point(0,0),
-                new Point(input.width()*(1.0/3.0), input.height())
+                new Point(input.width()/3.0, input.height())
         );
         Rect centerArea = new Rect(
-                new Point(input.width()*(1.0/3.0),0),
-                new Point(input.width()*(2.0/3.0), input.height())
+                new Point(input.width()/3.0,0),
+                new Point(input.width()*2.0/3.0,input.height())
         );
         Rect rightArea = new Rect(
-                new Point(input.width()*(2.0/3.0),0),
+                new Point(input.width()*2.0/3.0,0),
                 new Point(input.width(), input.height())
         );
 
@@ -80,11 +81,12 @@ public class VisionPipeline extends OpenCvPipeline {
         for (int i = 0; i < markerCorners.size(); i++) {
             int markerID = markerIDArray[i];
             Mat corners = markerCorners.get(i);
-            Moments moments = Imgproc.moments(corners);
 
             // https://docs.opencv.org/3.4/dd/d49/tutorial_py_contour_features.html
-            double cx = moments.m10/moments.m00;
-            double cy = moments.m01/moments.m00;
+            Moments m = Imgproc.moments(corners);
+
+            double cx = m.m10/m.m00;
+            double cy = m.m01/m.m00;
             Point centerOfMass = new Point(cx, cy);
 
             // We only care about marker with id 23
