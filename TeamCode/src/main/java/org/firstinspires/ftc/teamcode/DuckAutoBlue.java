@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeRamp;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSpinner;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 
-@Autonomous(name = "duck auto bloo")
+@Autonomous(name = "duck auto bloo", group = "Blue")
 
 public class DuckAutoBlue extends CommandOpMode {
 
