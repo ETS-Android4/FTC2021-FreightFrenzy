@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.MapSelectCommand;
 import com.arcrobotics.ftclib.command.PrintCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.commands.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.DriveStrafeCommand;
 import org.firstinspires.ftc.teamcode.commands.HomeArmCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltIntakeRampUpCommand;
+import org.firstinspires.ftc.teamcode.commands.TiltOuttakeInCommand;
 import org.firstinspires.ftc.teamcode.commands.TiltOuttakeOutCommand;
 import org.firstinspires.ftc.teamcode.commands.TurnInPlace;
 import org.firstinspires.ftc.teamcode.commands.WaitForVisionCommand;
@@ -128,14 +130,15 @@ public class ShipingHubAutoBlue extends CommandOpMode {
 
         WaitForVisionCommand waitForVisionCommand = new WaitForVisionCommand(pl);
         schedule(new SequentialCommandGroup(
+            new WaitUntilCommand(()-> isStarted()),
             // 0. scan marker, up to 5 sec
            waitForVisionCommand.withTimeout(5000),
-
+            new HomeArmCommand(arm),
             // 1. strafe right, arm scoring position
-            new DriveStrafeCommand(telemetry,drive,10*49,0.5),
+            new DriveStrafeCommand(telemetry,drive,-21*49,0.5),
 
             // 2. go -forward, chassis scoring position
-            new DriveForwardCommand(telemetry,drive,-24,0.5),
+            new DriveForwardCommand(telemetry,drive,-19,0.5),
 
             /* 3. place block in correct level, if marker undetected place on 3rd level
                 if marker on left extend _____
@@ -143,12 +146,13 @@ public class ShipingHubAutoBlue extends CommandOpMode {
                 if marker on right extend _____
                 else, extend _____
              */
+            new InstantCommand(()->intakeSpinner.stop()),
             new MapSelectCommand<>(
                     ImmutableMap.of(
-                            VisionPipeline.MarkerPlacement.LEFT, new ControlArmCommand(arm, 100,telemetry),
-                            VisionPipeline.MarkerPlacement.CENTER, new ControlArmCommand(arm, 500,telemetry),
-                            VisionPipeline.MarkerPlacement.RIGHT, new ControlArmCommand(arm, 1000,telemetry),
-                            VisionPipeline.MarkerPlacement.UNKNOWN, new ControlArmCommand(arm, 1500,telemetry)
+                            VisionPipeline.MarkerPlacement.LEFT, new ControlArmCommand(arm, 165,telemetry),
+                            VisionPipeline.MarkerPlacement.CENTER, new ControlArmCommand(arm, 755,telemetry),
+                            VisionPipeline.MarkerPlacement.RIGHT, new ControlArmCommand(arm, 1700,telemetry),
+                            VisionPipeline.MarkerPlacement.UNKNOWN, new ControlArmCommand(arm, 1700,telemetry)
                     ),
                     () -> waitForVisionCommand.getPlacement()
             ),
@@ -157,14 +161,14 @@ public class ShipingHubAutoBlue extends CommandOpMode {
             new TiltOuttakeOutCommand(outtake).withTimeout(1000),
 
             // 5. retract everything
-            new TiltOuttakeOutCommand(outtake).withTimeout(100),
+            new TiltOuttakeInCommand(outtake).withTimeout(100),
             new HomeArmCommand(arm),
 
             // 6. go forward
-            new DriveForwardCommand(telemetry,drive,24,0.5),
+            new DriveForwardCommand(telemetry,drive,10,0.5),
 
             // 7. rotate 90 degrees counterclockwise
-            new TurnInPlace(drive,90,telemetry),
+            new TurnInPlace(drive,-90,telemetry),
 
             // 8. go forward into warehouse
             new DriveForwardCommand(telemetry,drive,5*12,0.5)
