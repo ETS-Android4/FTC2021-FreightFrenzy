@@ -36,7 +36,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
 
-public class ShipingHubAutoBlue extends CommandOpMode {
+public class ShippingHubAutoBlue extends CommandOpMode {
 
     OpenCvWebcam webcam;
 
