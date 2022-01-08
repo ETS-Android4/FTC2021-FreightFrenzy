@@ -135,7 +135,7 @@ public class ShipingHubAutoBlue extends CommandOpMode {
            waitForVisionCommand.withTimeout(5000),
             new HomeArmCommand(arm),
             // 1. strafe right, arm scoring position
-            new DriveStrafeCommand(telemetry,drive,-21*49,0.5),
+            new DriveStrafeCommand(telemetry,drive,-20*49,0.5),
 
             // 2. go -forward, chassis scoring position
             new DriveForwardCommand(telemetry,drive,-19,0.5),
@@ -150,7 +150,7 @@ public class ShipingHubAutoBlue extends CommandOpMode {
             new MapSelectCommand<>(
                     ImmutableMap.of(
                             VisionPipeline.MarkerPlacement.LEFT, new ControlArmCommand(arm, 165,telemetry),
-                            VisionPipeline.MarkerPlacement.CENTER, new ControlArmCommand(arm, 755,telemetry),
+                            VisionPipeline.MarkerPlacement.CENTER, new ControlArmCommand(arm, 758,telemetry),
                             VisionPipeline.MarkerPlacement.RIGHT, new ControlArmCommand(arm, 1700,telemetry),
                             VisionPipeline.MarkerPlacement.UNKNOWN, new ControlArmCommand(arm, 1700,telemetry)
                     ),
@@ -171,7 +171,7 @@ public class ShipingHubAutoBlue extends CommandOpMode {
             new TurnInPlace(drive,-90,telemetry),
 
             // 8. go forward into warehouse
-            new DriveForwardCommand(telemetry,drive,5*12,0.5)
+            new DriveForwardCommand(telemetry,drive,6*12,0.5)
 
         ));
     }
