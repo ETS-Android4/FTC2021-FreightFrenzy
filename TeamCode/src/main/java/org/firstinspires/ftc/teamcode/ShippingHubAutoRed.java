@@ -59,7 +59,7 @@ public class ShippingHubAutoRed extends CommandOpMode {
          * single-parameter constructor instead (commented out below)
          */
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         /*
          * Specify the image processing pipeline we wish to invoke upon receipt
          * of a frame from the camera. Note that switching pipelines on-the-fly
@@ -98,7 +98,7 @@ public class ShippingHubAutoRed extends CommandOpMode {
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -136,7 +136,7 @@ public class ShippingHubAutoRed extends CommandOpMode {
            waitForVisionCommand.withTimeout(5000),
             new HomeArmCommand(arm),
             // 1. strafe left, arm scoring position
-            new DriveStrafeCommand(telemetry,drive,20*49,0.5),
+            new DriveStrafeCommand(telemetry,drive,27*49,0.5),
 
             // 2. go -forward, chassis scoring position
             new DriveForwardCommand(telemetry,drive,-19,0.5),
