@@ -68,7 +68,7 @@ public class WebcamExample extends LinearOpMode
          * (while a streaming session is in flight) *IS* supported.
          */
         //webcam.setPipeline(new SamplePipeline());
-        VisionPipeline pl = new VisionPipeline();
+        VisionPipeline pl = new VisionPipeline(hardwareMap);
         webcam.setPipeline(pl);
 
         /*

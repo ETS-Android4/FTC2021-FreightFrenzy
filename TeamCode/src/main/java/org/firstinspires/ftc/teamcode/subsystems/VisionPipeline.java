@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.opencv.aruco.DetectorParameters;
 import org.opencv.aruco.Dictionary;
 import org.opencv.core.Core;
@@ -32,10 +35,24 @@ public class VisionPipeline extends OpenCvPipeline {
         return markerPlacement;
     }
 
+    private DigitalChannel redLED;
+    private DigitalChannel greenLED;
+
     /*
      * Cache
      */
     private Mat output = new Mat();
+
+    public VisionPipeline (HardwareMap hardwareMap){
+
+        redLED = hardwareMap.get(DigitalChannel.class, "red");
+        greenLED = hardwareMap.get(DigitalChannel.class, "green");
+
+        // change LED mode from input to output
+        redLED.setMode(DigitalChannel.Mode.OUTPUT);
+        greenLED.setMode(DigitalChannel.Mode.OUTPUT);
+
+    }
 
     @Override
     public Mat processFrame(Mat input) {
@@ -120,10 +137,17 @@ public class VisionPipeline extends OpenCvPipeline {
 
         if (markerPlacement == MarkerPlacement.LEFT) {
             leftAlpha = 0.75;
+            redLED.setState(true);
+            greenLED.setState(false);
         } else if (markerPlacement == MarkerPlacement.CENTER) {
             centerAlpha = 0.75;
+            redLED.setState(true);
+            greenLED.setState(true);
+
         } else if (markerPlacement == MarkerPlacement.RIGHT) {
             rightAlpha = 0.75;
+            greenLED.setState(true);
+            redLED.setState(false);
         }
 
         drawTransparentRect(leftArea ,new Scalar(0,0,255), leftAlpha, output);
