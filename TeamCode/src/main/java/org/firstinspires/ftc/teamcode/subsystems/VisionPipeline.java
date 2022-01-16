@@ -137,17 +137,23 @@ public class VisionPipeline extends OpenCvPipeline {
 
         if (markerPlacement == MarkerPlacement.LEFT) {
             leftAlpha = 0.75;
-            redLED.setState(true);
+            // blue/amber
+            redLED.setState(false);
             greenLED.setState(false);
         } else if (markerPlacement == MarkerPlacement.CENTER) {
+            // green
             centerAlpha = 0.75;
-            redLED.setState(true);
+            redLED.setState(false);
             greenLED.setState(true);
 
         } else if (markerPlacement == MarkerPlacement.RIGHT) {
+            // red
             rightAlpha = 0.75;
+            greenLED.setState(false);
+            redLED.setState(true);
+        } else {
             greenLED.setState(true);
-            redLED.setState(false);
+            redLED.setState(true);
         }
 
         drawTransparentRect(leftArea ,new Scalar(0,0,255), leftAlpha, output);
