@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@Disabled
 @Autonomous(name = "Storage Red V2", group = "Red")
 
 public class AutoStorageRedOpModeV2 extends AutoStorageOpModeBaseV2{
