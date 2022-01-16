@@ -119,10 +119,6 @@ public class ShippingHubAutoBlue extends CommandOpMode {
         intakeramp = new IntakeRamp(hardwareMap);
         intakeSpinner = new IntakeSpinner(hardwareMap);
 
-        intakeramp.setDefaultCommand(
-                new TiltIntakeRampUpCommand(intakeramp)
-        );
-
         outtake.stow();
         sleep(1500);
         intakeramp.down();
@@ -139,6 +135,8 @@ public class ShippingHubAutoBlue extends CommandOpMode {
 
             // 2. go -forward, chassis scoring position
             new DriveForwardCommand(telemetry,drive,-19,0.5),
+
+            new InstantCommand(()->intakeramp.up(), intakeramp),
 
             /* 3. place block in correct level, if marker undetected place on 3rd level
                 if marker on left extend _____
