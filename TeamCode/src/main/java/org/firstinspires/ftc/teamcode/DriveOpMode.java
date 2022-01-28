@@ -80,10 +80,12 @@ public class DriveOpMode extends CommandOpMode {
 
             GamepadButton moveDownButton = new GamepadButton(driver2, GamepadKeys.Button.B);
             moveDownButton.whileHeld(new TiltOuttakeOutCommand(outtake));
+            moveDownButton.whenPressed(new TiltIntakeRampDownCommand(intakeramp));
 
             GamepadButton armHomeButton = new GamepadButton(driver2, GamepadKeys.Button.Y);
             armHomeButton.whenPressed(new HomeArmCommand(arm));
             armHomeButton.whenPressed(new TiltOuttakeInCommand(outtake));
+            armHomeButton.whenPressed(new TiltIntakeRampUpCommand(intakeramp));
 
             GamepadButton extendArmButton = new GamepadButton(driver2, GamepadKeys.Button.DPAD_UP);
             extendArmButton.whileHeld(new ExtendArmCommand(arm));
