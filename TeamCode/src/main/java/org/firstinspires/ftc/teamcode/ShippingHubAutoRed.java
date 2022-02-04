@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.MapSelectCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.google.common.collect.ImmutableMap;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -30,11 +31,21 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name = "Shipping Hub Red", group = "Red")
+public abstract class ShippingHubAutoRed extends CommandOpMode {
 
+    @Autonomous(name = "Shipping Hub Red (No Wait)", group = "Red")
+    public static class ShippingHubAutoRedNoWait extends ShippingHubAutoRed {
+        public ShippingHubAutoRedNoWait() {
+            super(0);
+        }
+    }
 
-
-public class ShippingHubAutoRed extends CommandOpMode {
+    @Autonomous(name = "Shipping Hub Red (Wait 5 seconds)", group = "Red")
+    public static class ShippingHubAutoRedWait5Seconds extends ShippingHubAutoRed {
+        public ShippingHubAutoRedWait5Seconds() {
+            super(5000);
+        }
+    }
 
     OpenCvWebcam webcam;
 
@@ -44,7 +55,11 @@ public class ShippingHubAutoRed extends CommandOpMode {
     private IntakeRamp intakeramp;
     private IntakeSpinner intakeSpinner;
     private Arm arm;
+    private final int waitTimeMS;
 
+    public ShippingHubAutoRed (int waitTimeMS ){
+        this.waitTimeMS = waitTimeMS;
+    }
 
     @Override
     public void initialize(){
@@ -132,6 +147,9 @@ public class ShippingHubAutoRed extends CommandOpMode {
 
             // 0. scan marker, up to 5 sec
            waitForVisionCommand.withTimeout(5000),
+
+            new WaitCommand(waitTimeMS),
+
             new HomeArmCommand(arm),
             // 1. strafe left, arm scoring position
             new DriveStrafeCommand(telemetry,drive,22*49,0.5),

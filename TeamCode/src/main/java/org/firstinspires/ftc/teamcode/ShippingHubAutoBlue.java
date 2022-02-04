@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.MapSelectCommand;
 import com.arcrobotics.ftclib.command.PrintCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.google.common.collect.ImmutableMap;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -32,11 +33,22 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name = "Shipping Hub Bloo", group = "Blue")
 
+public abstract class ShippingHubAutoBlue extends CommandOpMode {
 
+    @Autonomous(name = "Shipping Hub Blue (No Wait)", group = "Blue")
+    public static class ShippingHubAutoBlueNoWait extends ShippingHubAutoBlue {
+        public ShippingHubAutoBlueNoWait() {
+            super(0);
+        }
+    }
 
-public class ShippingHubAutoBlue extends CommandOpMode {
+    @Autonomous(name = "Shipping Hub Blue (Wait 5 seconds)", group = "Blue")
+    public static class ShippingHubAutoBlueWait5Seconds extends ShippingHubAutoBlue {
+        public ShippingHubAutoBlueWait5Seconds() {
+            super(5000);
+        }
+    }
 
     OpenCvWebcam webcam;
 
@@ -46,6 +58,11 @@ public class ShippingHubAutoBlue extends CommandOpMode {
     private IntakeRamp intakeramp;
     private IntakeSpinner intakeSpinner;
     private Arm arm;
+    private final int waitTimeMS;
+
+    public ShippingHubAutoBlue (int waitTimeMS ){
+        this.waitTimeMS = waitTimeMS;
+    }
 
 
     @Override
@@ -130,6 +147,7 @@ public class ShippingHubAutoBlue extends CommandOpMode {
             // 0. scan marker, up to 5 sec
            waitForVisionCommand.withTimeout(5000),
             new HomeArmCommand(arm),
+            new WaitCommand(waitTimeMS),
             // 1. strafe right, arm scoring position
             new DriveStrafeCommand(telemetry,drive,-20*49,0.5),
 
