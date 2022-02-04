@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.DriveWithGamepadCommand;
@@ -28,7 +29,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 @TeleOp(name = "TeleOp")
 
 public class DriveOpMode extends CommandOpMode {
-
+    private RevBlinkinLedDriver leds;
 
     private DuckSpinner duckSpinner;
     private Drive drive;
@@ -45,6 +46,8 @@ public class DriveOpMode extends CommandOpMode {
         arm = new Arm(hardwareMap, telemetry);
         intakeramp = new IntakeRamp(hardwareMap);
         intakeSpinner = new IntakeSpinner(hardwareMap);
+        leds = hardwareMap.get(RevBlinkinLedDriver.class, "Blingkin");
+        leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.TWINKLES_OCEAN_PALETTE );
 
         intakeramp.setDefaultCommand(
                 new TiltIntakeRampUpCommand(intakeramp)

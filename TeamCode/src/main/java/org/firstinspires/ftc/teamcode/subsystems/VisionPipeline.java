@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -37,6 +38,7 @@ public class VisionPipeline extends OpenCvPipeline {
 
     private DigitalChannel redLED;
     private DigitalChannel greenLED;
+    private RevBlinkinLedDriver leds;
 
     /*
      * Cache
@@ -51,6 +53,8 @@ public class VisionPipeline extends OpenCvPipeline {
         // change LED mode from input to output
         redLED.setMode(DigitalChannel.Mode.OUTPUT);
         greenLED.setMode(DigitalChannel.Mode.OUTPUT);
+
+        leds = hardwareMap.get(RevBlinkinLedDriver.class, "Blingkin");
 
     }
 
@@ -140,20 +144,23 @@ public class VisionPipeline extends OpenCvPipeline {
             // blue/amber
             redLED.setState(false);
             greenLED.setState(false);
+            leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
         } else if (markerPlacement == MarkerPlacement.CENTER) {
             // green
             centerAlpha = 0.75;
             redLED.setState(false);
             greenLED.setState(true);
-
+            leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
         } else if (markerPlacement == MarkerPlacement.RIGHT) {
             // red
             rightAlpha = 0.75;
             greenLED.setState(false);
             redLED.setState(true);
+            leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
         } else {
             greenLED.setState(true);
             redLED.setState(true);
+            leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_WHITE);
         }
 
         drawTransparentRect(leftArea ,new Scalar(0,0,255), leftAlpha, output);
