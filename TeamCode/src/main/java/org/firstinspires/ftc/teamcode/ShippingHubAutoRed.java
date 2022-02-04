@@ -134,7 +134,7 @@ public class ShippingHubAutoRed extends CommandOpMode {
            waitForVisionCommand.withTimeout(5000),
             new HomeArmCommand(arm),
             // 1. strafe left, arm scoring position
-            new DriveStrafeCommand(telemetry,drive,27*49,0.5),
+            new DriveStrafeCommand(telemetry,drive,22*49,0.5),
 
             // 2. go -forward, chassis scoring position
             new DriveForwardCommand(telemetry,drive,-19,0.5),
