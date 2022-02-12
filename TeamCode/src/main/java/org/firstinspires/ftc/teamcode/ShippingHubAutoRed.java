@@ -43,7 +43,7 @@ public abstract class ShippingHubAutoRed extends CommandOpMode {
     @Autonomous(name = "Shipping Hub Red (Wait 5 seconds)", group = "Red")
     public static class ShippingHubAutoRedWait5Seconds extends ShippingHubAutoRed {
         public ShippingHubAutoRedWait5Seconds() {
-            super(5000);
+            super(7500);
         }
     }
 
