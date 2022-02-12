@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -49,8 +50,8 @@ public class DuckAutoBlue extends CommandOpMode {
 
         schedule(
                 new SequentialCommandGroup(
-
                     new DriveStrafeCommand(telemetry, drive, 4*49, 0.5),
+                    new InstantCommand(()->intakeSpinner.stop()),
                     // Drive into the duck spinner, so we can spin it
                     new DriveForwardCommand(telemetry, drive, -23, 0.25),
                     new MoveDuckSpinnerSpinBlueCommand(duckSpinner).withTimeout(2000),
